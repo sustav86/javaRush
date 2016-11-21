@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,39 +28,27 @@ public class Solution
 
     public static void main(String[] args)
     {
+        String second = "";
+        int index = 0;
         StringBuilder stringBuilder = new StringBuilder();
-//        try (Scanner scanner = new Scanner(System.in))
-//        {
-//            String fileName = scanner.nextLine();
-//
-//            try (BufferedReader br = new BufferedReader(new FileReader(fileName)))
-//            {
-//                String str;
-//                while ((str = br.readLine()) != null)
-//                {
-//                    stringBuilder.append(str);
-//                }
-//            }
-//            catch (IOException e)
-//            {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//
-//        System.out.println(stringBuilder.toString());
-
-        String content;
 
         try
         {
-            stringBuilder.append(new String(Files.readAllBytes(Paths.get("oro.txt")), "WINDOWS-1251"));
-            System.out.println(stringBuilder.toString());
+            stringBuilder.append(new String(Files.readAllBytes(Paths.get("oro.txt")), "WINDOWS-1251").replaceAll("\n"," ").replaceAll("\r", ""));
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+
+        String[] arrayWords = stringBuilder.toString().split(" ");
+
+
+        for (Pair pair : result) {
+            System.out.println(pair.first + " " + pair.second);
+
+        }
+
 
     }
 
@@ -67,6 +56,11 @@ public class Solution
     {
         String first;
         String second;
+
+        public Pair(String first, String second) {
+            this.first = first;
+            this.second = second;
+        }
 
         @Override
         public String toString()
