@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * Created by SUSTAVOV on 13.11.2016.
@@ -32,5 +34,8 @@ public class Sol {
 //        Object obj2 = 0;
 //        Object obj3 = NULL;
 //        Object obj4 = UNKNOWN;
+        Stream<String> num = Arrays.stream("1,5".split(","));
+        int f = num.mapToInt(Integer::parseInt).sum();
+        System.out.println(f);
     }
 }
