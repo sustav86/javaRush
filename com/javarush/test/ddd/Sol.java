@@ -35,6 +35,7 @@ public class Sol {
 //        Object obj3 = NULL;
 //        Object obj4 = UNKNOWN;
         Stream<String> num = Arrays.stream("1,5".split(","));
+
         int f = num.mapToInt(Integer::parseInt).sum();
         System.out.println(f);
     }
