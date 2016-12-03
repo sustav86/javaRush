@@ -54,6 +54,7 @@ public class Solution {
 
 
         @Override
+        @SuppressWarnings("unchecked")
         public void run()
         {
 

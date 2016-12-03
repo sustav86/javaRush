@@ -1,9 +1,11 @@
 package com.javarush.test.level25.lesson02.home01;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
 
-public enum Column {
+public enum Column implements Columnable {
     Customer("Customer"),
     BankName("Bank Name"),
     AccountNumber("Account Number"),
@@ -49,8 +51,29 @@ public enum Column {
      * @return список колонок
      */
     public static List<Column> getVisibleColumns() {
-        List<Column> result = new LinkedList<>();
-
-        return result;
+        TreeMap<Integer, Column> map = new TreeMap<>();
+        for (int i = 0; i < realOrder.length; i++) {
+            if (realOrder[i] != -1) map.put(realOrder[i], values()[i]);
+        }
+        return new LinkedList<>(map.values());
     }
+
+    @Override
+    public String getColumnName() {
+        return columnName;
+    }
+
+    @Override
+    public boolean isShown() {
+        return realOrder[ordinal()]!= -1;
+    }
+
+    @Override
+    public void hide() {
+        if (realOrder[ordinal()] != -1) {
+
+            realOrder[ordinal()] = -1;
+        }
+    }
+
 }
