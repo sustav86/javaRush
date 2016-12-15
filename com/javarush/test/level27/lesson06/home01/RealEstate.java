@@ -29,9 +29,13 @@ public class RealEstate {
         activeApartments.add(apartment);
     }
 
-    public synchronized void revalidate() {
+    public void revalidate() {
+        Set<Apartment> copy;
+        synchronized (this) {
+            copy = new HashSet<>(allApartments);
+        }
         activeApartments.clear();
-        for (Apartment apartment : allApartments) {
+        for (Apartment apartment : copy) {
             boolean randomValue = Math.random() * 2 % 2 == 0;
             apartment.revalidate(randomValue);
         }
