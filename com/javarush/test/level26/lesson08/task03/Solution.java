@@ -28,7 +28,7 @@ public class Solution {
 
     public Object get(Object key) {
         int hash = hash(key);
-        synchronized (locks[hash(key)]) {
+        synchronized (locks[hash % NUMBER_LOCKS]) {
             for (Node m = buckets[hash]; m != null; m = m.next) {
                 if (m.key.equals(key)) return m.value;
             }
@@ -38,9 +38,14 @@ public class Solution {
 
     public void clear() {
         for (int i = 0; i < buckets.length; i++) {
-            synchronized (locks[i]) {
+            synchronized (locks[i % NUMBER_LOCKS]) {
                 buckets[i] = null;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution(5);
+        Object obj = solution.get("asdasdasdads");
     }
 }
