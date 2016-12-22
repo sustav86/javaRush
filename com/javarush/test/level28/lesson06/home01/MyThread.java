@@ -1,9 +1,15 @@
 package com.javarush.test.level28.lesson06.home01;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Created by ukr-sustavov on 22.12.2016.
  */
 public class MyThread extends Thread {
+
+    private static AtomicInteger threadPriority = new AtomicInteger(1);
+
     public MyThread(Runnable target) {
         super(target);
         setPriority();
@@ -44,7 +50,11 @@ public class MyThread extends Thread {
     }
 
     private void setPriority() {
-        this.setPriority(2);
+        if (threadPriority.get() == 10) {
+            this.setPriority(threadPriority.getAndSet(1));
+        } else {
+            this.setPriority(threadPriority.getAndIncrement());
+        }
 
     }
 }
