@@ -1,5 +1,7 @@
 package com.javarush.test.level26.lesson15.big01;
 
+import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,14 +59,17 @@ public class ConsoleHelper {
         }
     }
 
-    public static Operation askOperation() {
+    public static Operation askOperation() throws InterruptOperationException {
         Operation operation;
+        String userChoice = "";
         while (true) {
             System.out.println("Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
             try {
-                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(readString()));
+                userChoice = readString();
+                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(userChoice));
                 break;
             }catch (IllegalArgumentException ex) {
+                if (userChoice.toLowerCase().equals("exit")) throw new InterruptOperationException();
                 System.out.println("Wrong choice. Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
             }catch (Exception ex) {
                 System.out.println("Wrong choice. Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
