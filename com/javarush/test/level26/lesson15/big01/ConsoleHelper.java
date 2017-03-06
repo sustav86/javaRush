@@ -16,19 +16,25 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public static String readString() {
+    public static String readString() throws InterruptOperationException{
         String in = "";
 
         try {
             in = reader.readLine();
+
         }catch (IOException ex) {
+            writeMessage("Wrong choice");
+        }
+
+        if (in.toLowerCase().equals("exit")) {
+            throw new InterruptOperationException();
 
         }
 
         return in;
     }
 
-    public static String askCurrencyCode() {
+    public static String askCurrencyCode() throws InterruptOperationException{
         writeMessage("Enter the currency code.");
         String s = readString();
         while (s.length() != 3)
@@ -39,10 +45,10 @@ public class ConsoleHelper {
         return s.toUpperCase();
     }
 
-    public static String[] getValidTwoDigits(String currencyCode) {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException{
         String valueAndAmount;
         String[] result;
-        writeMessage("Input nominal and amount:");
+        writeMessage("Input nominal and amount: " + currencyCode);
 
         while (true) {
             valueAndAmount = readString();
@@ -61,18 +67,13 @@ public class ConsoleHelper {
 
     public static Operation askOperation() throws InterruptOperationException {
         Operation operation;
-        String userChoice = "";
         while (true) {
-            System.out.println("Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
+            writeMessage("Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
             try {
-                userChoice = readString();
-                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(userChoice));
+                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(readString()));
                 break;
             }catch (IllegalArgumentException ex) {
-                if (userChoice.toLowerCase().equals("exit")) throw new InterruptOperationException();
-                System.out.println("Wrong choice. Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
-            }catch (Exception ex) {
-                System.out.println("Wrong choice. Choose operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
+                writeMessage("Wrong choice");
             }
 
         }

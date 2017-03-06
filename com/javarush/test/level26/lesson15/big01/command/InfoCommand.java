@@ -1,18 +1,19 @@
 package com.javarush.test.level26.lesson15.big01.command;
 
+import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
 import com.javarush.test.level26.lesson15.big01.CurrencyManipulator;
 import com.javarush.test.level26.lesson15.big01.CurrencyManipulatorFactory;
+import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+
 
 /**
  * Created by SUSTAVOV on 06.01.2017.
  */
 class InfoCommand implements Command {
     @Override
-    public void execute() {
+    public void execute() throws InterruptOperationException {
 //        if (!CurrencyManipulatorFactory.hasMoney()) {
 //            System.out.println("No money available.");
 //        } else {
@@ -47,7 +48,7 @@ class InfoCommand implements Command {
             }
         }
         if (count == 0) {
-            System.out.println("No money available.");
+            ConsoleHelper.writeMessage("No money available.");
         }
     }
 }

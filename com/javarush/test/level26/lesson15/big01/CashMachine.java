@@ -11,17 +11,17 @@ import java.util.Locale;
 public class CashMachine {
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
-        Operation operation;
-        do {
-            try {
+
+        try {
+            Operation operation;
+            do {
                 operation = ConsoleHelper.askOperation();
                 CommandExecutor.execute(operation);
-            } catch (InterruptOperationException e) {
-                ConsoleHelper.writeMessage("Buy, my dear friend!");
-                break;
-            }
+            } while (operation != Operation.EXIT);
 
-        } while (operation != Operation.EXIT);
+        } catch (InterruptOperationException e) {
+            ConsoleHelper.writeMessage("Buy, my dear friend!");
+        }
 
     }
 }
